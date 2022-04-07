@@ -1,16 +1,19 @@
 package main;
 
-import javax.swing.JFrame;
+import renderer.Window;
 
 public class Game {
-	
-	public static void main(String[] args) {
-		JFrame window = new JFrame("Sunny's game");
-		window.setContentPane(new GamePanel());
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(false);
-		window.pack();
-		window.setVisible(true);
-	}
-	
+
+    public static Window window = new Window();
+
+    public static void main(String args[]) {
+        GameLoop loop = new GameLoop();
+
+        try {
+            loop.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
