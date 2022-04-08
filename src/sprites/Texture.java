@@ -2,6 +2,8 @@ package sprites;
 
 import de.matthiasmann.twl.utils.PNGDecoder;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
@@ -9,9 +11,6 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
-/**
- * Created by one on 9/17/16.
- */
 public class Texture {
 
     private final int id;
@@ -44,7 +43,7 @@ public class Texture {
     }
 
     public Texture(String fileName) throws Exception {
-        this(Texture.class.getResourceAsStream(fileName));
+        this(new FileInputStream(new File(fileName)));
     }
 
     public Texture(String fileName, int numRows) throws Exception {

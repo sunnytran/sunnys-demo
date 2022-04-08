@@ -1,98 +1,71 @@
 package game;
 
-import core.Launcher;
-import core.ObjectLoader;
-import core.Window;
-import core.utils.Constants;
-import game.states.State;
-import game.states.TownState;
-import renderers.Renderer;
-import sprites.Model;
-import sprites.Texture;
+import gameItems.Player;
+import levels.Level;
+import org.joml.Vector2f;
+import renderers.MasterRenderer;
+import sprites.Sprite;
+import utils.*;
 
-public class GameLogic implements ILogic {
+import java.util.ArrayList;
+import java.util.List;
 
-	private State[] gameStates;
+import static org.lwjgl.glfw.GLFW.*;
 
-	public static final int N_STATES = 1;
-	public static final int TOWN_STATE = 0;
-	private int currentState;
+public class GameLogic implements IGameLogic {
 
-	private final Renderer renderer;
-	private final Window window;
-	ObjectLoader loader;
+    private MasterRenderer renderer;
+    private Camera camera;
+    private List<Sprite> sprites = new ArrayList<Sprite>();
 
-	private Model model;
+    private Loader loader;
 
-	public GameLogic() {
-		renderer = new Renderer();
-		window = Launcher.window;
-		loader = new ObjectLoader();
-	}
+    private Level level;
+    private Player player;
 
-	@Override
-	public void init() throws Exception {
-		renderer.init();
+    public GameLogic() {
+        renderer = new MasterRenderer();
+        camera = new Camera();
+        loader = new Loader();
+        level = new Level("level.txt");
+        player = new Player(new Vector2f(60, 60));
+    }
 
-		float vertices[] = {
-				-0.5f, 0.5f, 0f,
-				-0.5f, -0.5f, 0f,
-				0.5f, -0.5f, 0f,
-				0.5f, 0.5f, 0f
-		};
-		int indices[] = {
-				0, 1, 3,
-				3, 1, 2
-		};
-		float textureCoords[] = {
-				0, 0,
-				0, 1,
-				1, 1,
-				1, 0
-		};
+    @Override
+    public void init(Window window) throws Exception {
+        renderer.init();
+        camera = new Camera();
+        camera.init(window.getWidth(), window.getHeight());
+        level.init(sprites);
+        player.init2();
+    }
 
-		// model = loader.loadModel(vertices, textureCoords, indices);
-		// model.setTexture(new Texture(loader.loadTexture(Constants.TILESET_BASE_PATH +
-		// "world/tileset.png")));
+    @Override
+    public void input(Window window) {
 
-		gameStates = new State[N_STATES];
-		currentState = TOWN_STATE;
-		loadState(currentState);
-	}
+    }
 
-	@Override
-	public void input() {
+    @Override
+    public void update(float interval) {
+        camera.setPosition(new Vector2f(Math.max(300, player.getPosition().x),
+                Math.max(250, player.getPosition().y)));
+        camera.update();
+    }
 
-	}
+    @Override
+    public void render(Window window) {
+        for (Sprite sprite : sprites) {
+            renderer.processSprite(sprite);
+        }
 
-	public void update() {
-		gameStates[currentState].update();
-	}
+        // render sprites
+        renderer.render(camera, player);
+    }
 
-	public void render() {
-		// gameStates[currentState].draw(g);
-		renderer.render(model);
-	}
-
-	public void cleanup() {
-		renderer.cleanup();
-		loader.cleanup();
-	}
-
-	private void loadState(int state) {
-		if (state == TOWN_STATE)
-			gameStates[state] = new TownState();
-	}
-
-	private void unloadState(int state) {
-		gameStates[state] = null;
-	}
-
-	public void setState(int state) {
-		unloadState(currentState);
-		currentState = state;
-		loadState(currentState);
-		gameStates[currentState].init();
-	}
+    @Override
+    public void cleanUp() {
+        loader.cleanUp();
+        renderer.cleanUp();
+    }
 
 }

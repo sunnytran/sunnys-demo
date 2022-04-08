@@ -3,9 +3,6 @@ package sprites;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by one on 9/17/16.
- */
 public class TextureCache {
 
     private static Map<String, Texture> textureMap = new HashMap<String, Texture>();

@@ -1,39 +1,123 @@
 package sprites;
 
+import utils.Loader;
+
 public class Model {
 
-    private int id;
-    private int vertexCount;
+    private float width;
+    private float height;
+
     private Texture texture;
 
-    public Model(int id, int vertexCount) {
-        this.id = id;
-        this.vertexCount = vertexCount;
+    private int vaoID;
+
+    // light
+    public Model(float size) throws Exception {
+        this.width = size;
+        this.height = size;
+
+        float[] vertices = {
+                -size / 2, size / 2,
+                -size / 2, -size / 2,
+                size / 2, size / 2,
+                size / 2, -size / 2
+        };
+
     }
 
-    public Model(int id, int vertexCount, Texture texture) {
-        this(id, vertexCount);
-        this.texture = texture;
+    public Model(float width, float height, String textureFilePath) throws Exception {
+
+        this.width = width;
+        this.height = height;
+        this.texture = TextureCache.getTexture(textureFilePath);
+
+        float[] vertices = {
+                0, height,
+                0, 0,
+                width, 0,
+                width, height
+
+        };
+
+        int[] indices = {
+                0, 1, 3,
+                3, 1, 2
+        };
+
+        float[] textureCoords = {
+                0, 0,
+                0, 1,
+                1, 1,
+                1, 0
+        };
+
+        vaoID = Loader.loadToVAO(vertices, textureCoords, indices);
     }
 
-    public Model(Model model, Texture texture) {
-        this(model.getID(), model.getVertexCount(), texture);
+    public Model(float width, float height, String textureFilePath, int numRows) throws Exception {
+
+        this.width = width;
+        this.height = height;
+        this.texture = TextureCache.getTexture(textureFilePath, numRows);
+
+        float[] vertices = {
+                0, height,
+                0, 0,
+                width, 0,
+                width, height
+
+        };
+
+        int[] indices = {
+                0, 1, 3,
+                3, 1, 2
+        };
+
+        float[] textureCoords = {
+                0, 0,
+                0, 1,
+                1, 1,
+                1, 0
+        };
+
+        vaoID = Loader.loadToVAO(vertices, textureCoords, indices);
     }
 
-    public int getID() {
-        return this.id;
-    }
+    public Model(float width, float height, String textureFilePath, int numRows, float[] textureCoords)
+            throws Exception {
+        this.width = width;
+        this.height = height;
+        this.texture = TextureCache.getTexture(textureFilePath, numRows);
 
-    public int getVertexCount() {
-        return this.vertexCount;
+        float[] vertices = {
+                0, height,
+                0, 0,
+                width, 0,
+                width, height
+
+        };
+
+        int[] indices = {
+                0, 1, 3,
+                3, 1, 2
+        };
+
+        vaoID = Loader.loadToVAO(vertices, textureCoords, indices);
     }
 
     public Texture getTexture() {
         return texture;
     }
 
-    public void setTexture(Texture texture) {
-        this.texture = texture;
+    public int getVaoID() {
+        return vaoID;
     }
 
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
 }
