@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import core.utils.Constants;
-import math.Vector2f;
-import tiles.Tile;
-import tiles.TileSet;
+import core.utils.Vector2f;
+import game.tiles.Tile;
+import game.tiles.TileSet;
 
 public class WorldData {
 

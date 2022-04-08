@@ -1,9 +1,9 @@
-package tiles;
+package game.tiles;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import math.Vector2f;
+import core.utils.Vector2f;
 
 public class Tile {
 

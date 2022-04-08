@@ -3,9 +3,9 @@ package game.world;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import math.Vector2f;
-import tiles.Tile;
-import tiles.TileSet;
+import core.utils.Vector2f;
+import game.tiles.Tile;
+import game.tiles.TileSet;
 
 public class World {
 

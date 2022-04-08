@@ -4,14 +4,11 @@ import core.Launcher;
 import core.ObjectLoader;
 import core.Window;
 import core.entity.Model;
+import core.entity.Texture;
+import core.utils.Constants;
 import game.states.State;
 import game.states.TownState;
-import renderering.Renderer;
-
-import org.lwjgl.glfw.*;
-
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
+import renderers.Renderer;
 
 public class GameLogic implements ILogic {
 
@@ -37,20 +34,29 @@ public class GameLogic implements ILogic {
 	public void init() throws Exception {
 		renderer.init();
 
-		float[] vertices = {
+		float vertices[] = {
 				-0.5f, 0.5f, 0f,
-				-0.5f, -0.5f, 0.5f,
+				-0.5f, -0.5f, 0f,
 				0.5f, -0.5f, 0f,
-				0.5f, -0.5f, 0f,
-				0.5f, 0.5f, 0f,
-				-0.5f, 0.5f, 0f
+				0.5f, 0.5f, 0f
+		};
+		int indices[] = {
+				0, 1, 3,
+				3, 1, 2
+		};
+		float textureCoords[] = {
+				0, 0,
+				0, 1,
+				1, 1,
+				1, 0
 		};
 
-		model = loader.loadModel(vertices);
+		model = loader.loadModel(vertices, textureCoords, indices);
+		model.setTexture(new Texture(loader.loadTexture(Constants.TILESET_BASE_PATH + "world/tileset.png")));
 
-		// gameStates = new State[N_STATES];
-		// currentState = TOWN_STATE;
-		// loadState(currentState);
+		gameStates = new State[N_STATES];
+		currentState = TOWN_STATE;
+		loadState(currentState);
 	}
 
 	@Override
@@ -59,20 +65,11 @@ public class GameLogic implements ILogic {
 	}
 
 	public void update() {
-		try {
-			gameStates[currentState].update();
-		} catch (Exception e) {
-
-		}
+		gameStates[currentState].update();
 	}
 
 	public void render() {
-		try {
-			// gameStates[currentState].draw(g);
-		} catch (Exception e) {
-
-		}
-
+		// gameStates[currentState].draw(g);
 		renderer.render(model);
 	}
 
