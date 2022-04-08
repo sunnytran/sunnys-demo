@@ -3,12 +3,12 @@ package game;
 import core.Launcher;
 import core.ObjectLoader;
 import core.Window;
-import core.entity.Model;
-import core.entity.Texture;
 import core.utils.Constants;
 import game.states.State;
 import game.states.TownState;
 import renderers.Renderer;
+import sprites.Model;
+import sprites.Texture;
 
 public class GameLogic implements ILogic {
 
@@ -51,8 +51,9 @@ public class GameLogic implements ILogic {
 				1, 0
 		};
 
-		model = loader.loadModel(vertices, textureCoords, indices);
-		model.setTexture(new Texture(loader.loadTexture(Constants.TILESET_BASE_PATH + "world/tileset.png")));
+		// model = loader.loadModel(vertices, textureCoords, indices);
+		// model.setTexture(new Texture(loader.loadTexture(Constants.TILESET_BASE_PATH +
+		// "world/tileset.png")));
 
 		gameStates = new State[N_STATES];
 		currentState = TOWN_STATE;

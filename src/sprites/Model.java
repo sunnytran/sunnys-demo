@@ -1,4 +1,4 @@
-package core.entity;
+package sprites;
 
 public class Model {
 

@@ -14,7 +14,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 public class Window {
 
     public final String title;
-    public int width, height;
+    public final int width, height;
 
     public long windowID;
 
@@ -108,16 +108,8 @@ public class Window {
         return width;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     public int getHeight() {
         return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 
 }

@@ -13,8 +13,8 @@ import org.lwjgl.opengl.GL30;
 import org.lwjgl.stb.STBImage;
 import org.lwjgl.system.MemoryStack;
 
-import core.entity.Model;
 import core.utils.RenderUtils;
+import sprites.Model;
 
 public class ObjectLoader {
 

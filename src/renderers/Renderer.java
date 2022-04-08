@@ -9,10 +9,10 @@ import org.lwjgl.opengl.GL30;
 
 import core.Launcher;
 import core.Window;
-import core.entity.Model;
 import core.utils.Constants;
 import core.utils.RenderUtils;
 import shaders.ShaderProgram;
+import sprites.Model;
 
 public class Renderer {
 
