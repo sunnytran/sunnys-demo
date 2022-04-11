@@ -1,16 +1,17 @@
 package renderers;
 
-import gameItems.Player;
 import org.joml.Vector2f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+
+import core.utils.Camera;
+import core.utils.Maths;
+import game.items.Player;
 import shaders.StaticShader;
 import sprites.Model;
 import sprites.Sprite;
-import utils.Camera;
-import utils.Maths;
 
 import java.util.List;
 import java.util.Map;

@@ -1,14 +1,13 @@
 package game;
 
-import gameItems.Player;
-import levels.Level;
 import org.joml.Vector2f;
+
+import core.utils.*;
+import game.items.Player;
 import renderers.MasterRenderer;
 import sprites.Sprite;
-import utils.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -16,19 +15,21 @@ public class GameLogic implements IGameLogic {
 
     private MasterRenderer renderer;
     private Camera camera;
-    private List<Sprite> sprites = new ArrayList<Sprite>();
-
-    private Loader loader;
+    private ArrayList<Sprite> tiles;
+    private ArrayList<Sprite> objects;
 
     private Level level;
     private Player player;
 
     public GameLogic() {
-        renderer = new MasterRenderer();
-        camera = new Camera();
-        loader = new Loader();
-        level = new Level("level.txt");
-        player = new Player(new Vector2f(60, 60));
+        this.renderer = new MasterRenderer();
+        this.camera = new Camera();
+        this.tiles = new ArrayList<Sprite>();
+        this.objects = new ArrayList<Sprite>();
+
+        this.level = new Level(Constants.LEVELS_BASE_PATH + "town/tiles.dat",
+                Constants.LEVELS_BASE_PATH + "town/objects.dat");
+        this.player = new Player(new Vector2f(0, 0));
     }
 
     @Override
@@ -36,7 +37,8 @@ public class GameLogic implements IGameLogic {
         renderer.init();
         camera = new Camera();
         camera.init(window.getWidth(), window.getHeight());
-        level.init(sprites);
+
+        level.init(tiles, objects);
         player.init2();
     }
 
@@ -47,24 +49,25 @@ public class GameLogic implements IGameLogic {
 
     @Override
     public void update(float interval) {
-        camera.setPosition(new Vector2f(Math.max(300, player.getPosition().x),
-                Math.max(250, player.getPosition().y)));
+        camera.setPosition(new Vector2f(608, 608));
         camera.update();
     }
 
     @Override
     public void render(Window window) {
-        for (Sprite sprite : sprites) {
+        // for (Sprite sprite : tiles) {
+        // renderer.processSprite(sprite);
+        // }
+        for (Sprite sprite : objects) {
             renderer.processSprite(sprite);
         }
 
-        // render sprites
+        // render tiles
         renderer.render(camera, player);
     }
 
     @Override
     public void cleanUp() {
-        loader.cleanUp();
         renderer.cleanUp();
     }
 

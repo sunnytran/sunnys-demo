@@ -1,14 +1,15 @@
 package renderers;
 
-import gameItems.Player;
 import sprites.Model;
 import sprites.Sprite;
-import utils.Camera;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import core.utils.Camera;
+import game.items.Player;
 
 public class MasterRenderer {
 
@@ -27,12 +28,12 @@ public class MasterRenderer {
     }
 
     public void render(Camera camera, Player player) {
-        // System.out.println(sprites.size());
         renderer.prepare();
         renderer.getShader().start();
         renderer.getShader().loadCameraMatrix(camera.getCameraMatrix());
         renderer.render(sprites, camera);
-        renderer.render(player);
+        // TODO: Uncomment this
+        // renderer.render(player);
         renderer.getShader().stop();
 
         sprites.clear();

@@ -1,6 +1,6 @@
 package game;
 
-import utils.Window;
+import core.utils.Window;
 
 public interface IGameLogic {
 
